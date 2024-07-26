@@ -13,3 +13,7 @@ edit `playground.ipynb`
 ### Identifying TRADEABLE Coin Assets
 
 filter "isFrozen" and "postOnly" coins
+
+### Adding TRADEABLES to a List
+
+append coin symbol into an array
