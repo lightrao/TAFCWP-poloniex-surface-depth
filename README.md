@@ -9,3 +9,7 @@ pip install requests
 ```
 
 edit `playground.ipynb`
+
+### Identifying TRADEABLE Coin Assets
+
+filter "isFrozen" and "postOnly" coins
