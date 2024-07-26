@@ -17,3 +17,7 @@ filter "isFrozen" and "postOnly" coins
 ### Adding TRADEABLES to a List
 
 append coin symbol into an array
+
+### Using Methods (Functions) to Neaten Your Code
+
+use python functions
