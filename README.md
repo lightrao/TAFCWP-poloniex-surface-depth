@@ -21,3 +21,7 @@ append coin symbol into an array
 ### Using Methods (Functions) to Neaten Your Code
 
 use python functions
+
+### Running in a Modular Structure
+
+create `step` function
