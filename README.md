@@ -31,3 +31,5 @@ create `step` function
 find three coin pairs which will be arbitrage
 
 Structuring Pair A
+
+More Code Structuring
