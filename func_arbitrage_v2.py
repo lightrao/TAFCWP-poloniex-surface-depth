@@ -23,10 +23,12 @@ def structure_triangular_pairs(coin_list):
     # Declare Variables
     triangular_pairs_list = []
     remove_duplicates_list = []
-    pairs_list = []
+    pairs_list = coin_list[0:]
 
     # Get Pair A
-    for pair_a in coin_list:
+    for pair_a in pairs_list:
+        print("***********")
+        print("pair_a: ", pair_a)
         pair_a_split = pair_a.split("_")
         a_base = pair_a_split[0]
         a_quote = pair_a_split[1]
@@ -35,7 +37,7 @@ def structure_triangular_pairs(coin_list):
         a_pair_box = [a_base, a_quote]
 
         # Get Pair B
-        for pair_b in coin_list:
+        for pair_b in pairs_list:
             pair_b_split = pair_b.split("_")
             b_base = pair_b_split[0]
             b_quote = pair_b_split[1]
@@ -43,4 +45,7 @@ def structure_triangular_pairs(coin_list):
             # Check Pair B
             if pair_b != pair_a:
                 if b_base in a_pair_box or b_quote in a_pair_box:
-                    pass  # here we successfully identified a pair b
+                    # here we successfully identified pari and a pair b
+
+                    # Get Pair C
+                    print("pair_b: ", pair_b)
