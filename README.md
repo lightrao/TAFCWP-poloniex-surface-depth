@@ -25,3 +25,9 @@ use python functions
 ### Running in a Modular Structure
 
 create `step` function
+
+### Structuring Pairs Logic
+
+find three coin pairs which will be arbitrage
+
+Structuring Pair A
