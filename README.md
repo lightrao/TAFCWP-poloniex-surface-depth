@@ -37,3 +37,5 @@ More Code Structuring
 Structuring Pair B
 
 Structuring Pair C
+
+Logging a Triangular Match

@@ -43,7 +43,7 @@ def structure_triangular_pairs(coin_list):
             # Check Pair B
             if pair_b != pair_a:
                 if b_base in a_pair_box or b_quote in a_pair_box:
-                    # here we successfully identified pari and a pair b
+                    # here we successfully identified pair a and pair b
 
                     # Get Pair C
                     for pair_c in pairs_list:
@@ -79,4 +79,24 @@ def structure_triangular_pairs(coin_list):
                                 and counts_c_quote == 2
                                 and c_base != c_quote
                             ):
-                                print(pair_a, pair_b, pair_c)
+                                combined = pair_a + "," + pair_b + "," + pair_c
+                                unique_item = "".join(sorted(combine_all))
+
+                                if unique_item not in remove_duplicates_list:
+                                    match_dict = {
+                                        "a_base": a_base,
+                                        "b_base": b_base,
+                                        "c_base": c_base,
+                                        "a_quote": a_quote,
+                                        "b_quote": b_quote,
+                                        "c_quote": c_quote,
+                                        "pair_a": pair_a,
+                                        "pair_b": pair_b,
+                                        "pair_c": pair_c,
+                                        "combined": combined,
+                                    }
+                                    triangular_pairs_list.append(match_dict)
+                                    remove_duplicates_list.append(unique_item)
+
+    print(len(triangular_pairs_list))
+    print(triangular_pairs_list[0:])
