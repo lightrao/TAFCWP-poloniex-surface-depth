@@ -98,5 +98,4 @@ def structure_triangular_pairs(coin_list):
                                     triangular_pairs_list.append(match_dict)
                                     remove_duplicates_list.append(unique_item)
 
-    print(len(triangular_pairs_list))
-    print(triangular_pairs_list[0:])
+    return triangular_pairs_list

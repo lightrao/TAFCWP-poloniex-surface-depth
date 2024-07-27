@@ -39,3 +39,5 @@ Structuring Pair B
 Structuring Pair C
 
 Logging a Triangular Match
+
+Saving Structured Pairs to JSON
