@@ -33,3 +33,5 @@ find three coin pairs which will be arbitrage
 Structuring Pair A
 
 More Code Structuring
+
+Structuring Pair B
