@@ -45,3 +45,5 @@ Saving Structured Pairs to JSON
 ## Poloniex - calculating surface rates
 
 Loading Structured Pairs Fast
+
+Get Latest Prices

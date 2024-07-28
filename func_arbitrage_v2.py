@@ -3,7 +3,7 @@ import json
 
 
 # make a get request
-def get_coin_tikers(url):
+def get_coin_tickers(url):
     req = requests.get(url)
     json_resp = json.loads(req.text)
     return json_resp
