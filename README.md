@@ -41,3 +41,7 @@ Structuring Pair C
 Logging a Triangular Match
 
 Saving Structured Pairs to JSON
+
+## Poloniex - calculating surface rates
+
+Loading Structured Pairs Fast
