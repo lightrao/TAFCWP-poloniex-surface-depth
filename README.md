@@ -47,3 +47,5 @@ Saving Structured Pairs to JSON
 Loading Structured Pairs Fast
 
 Get Latest Prices
+
+Structure Prices for Surface Rate Calculation

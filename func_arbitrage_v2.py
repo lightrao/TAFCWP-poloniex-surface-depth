@@ -99,3 +99,34 @@ def structure_triangular_pairs(coin_list):
                                     remove_duplicates_list.append(unique_item)
 
     return triangular_pairs_list
+
+
+# Helper funciton
+def extract_price(pair, prices):
+    ask = 0
+    bid = 0
+    for item in prices:
+        if item["symbol"] == pair:
+            ask = float(item["ask"])
+            bid = float(item["bid"])
+            break
+    return (ask, bid)
+
+
+# Structure Prices
+def get_price_for_t_pair(t_pair, prices_json):
+
+    # Extract Price Information for Given Pairs
+    pair_a_ask, pair_a_bid = extract_price(t_pair["pair_a"], prices_json)
+    pair_b_ask, pair_b_bid = extract_price(t_pair["pair_b"], prices_json)
+    pair_c_ask, pair_c_bid = extract_price(t_pair["pair_c"], prices_json)
+
+    # Output Dictionary
+    return {
+        "pair_a_ask": pair_a_ask,
+        "pair_a_bid": pair_a_bid,
+        "pair_b_ask": pair_b_ask,
+        "pair_b_bid": pair_b_bid,
+        "pair_c_ask": pair_c_ask,
+        "pair_c_bid": pair_c_bid,
+    }
