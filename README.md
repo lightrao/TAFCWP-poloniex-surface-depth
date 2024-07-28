@@ -49,3 +49,5 @@ Loading Structured Pairs Fast
 Get Latest Prices
 
 Structure Prices for Surface Rate Calculation
+
+Setting Variables and Correcting Price Information
