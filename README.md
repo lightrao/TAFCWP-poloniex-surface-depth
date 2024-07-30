@@ -53,3 +53,23 @@ Structure Prices for Surface Rate Calculation
 Setting Variables and Correcting Price Information
 
 BID ASK Calculation Recap
+
+Important Additional Variables and Commenting
+
+Your First Triangular Arbitrage Calculation
+
+Another Triangular Arbitrage Calculation Example
+
+Finalising Forward Rate Calculations
+
+Assessing Forward Algorithm
+
+Calculating Reverse Rates
+
+CORRECTION Updating Indentation
+
+BUG FIX and Trading Descriptions
+
+Outputting Surface Rate Opportunities
+
+Looking Back and Next Steps
