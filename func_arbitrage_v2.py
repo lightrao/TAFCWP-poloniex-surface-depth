@@ -149,12 +149,21 @@ def calc_triangular_arb_surface_rate(t_pair, prices_dict):
     calculated = 0
 
     # Extract Pair Variables
-    a_base = t_pair["a_base"]
-    a_quote = t_pair["a_quote"]
-    b_base = t_pair["b_base"]
-    b_quote = t_pair["b_quote"]
-    c_base = t_pair["c_base"]
-    c_quote = t_pair["c_quote"]
+
+    # a_base = t_pair["a_base"]
+    # a_quote = t_pair["a_quote"]
+    # b_base = t_pair["b_base"]
+    # b_quote = t_pair["b_quote"]
+    # c_base = t_pair["c_base"]
+    # c_quote = t_pair["c_quote"]
+
+    a_quote = t_pair["a_base"]
+    a_base = t_pair["a_quote"]
+    b_quote = t_pair["b_base"]
+    b_base = t_pair["b_quote"]
+    c_quote = t_pair["c_base"]
+    c_base = t_pair["c_quote"]
+
     pair_a = t_pair["pair_a"]
     pair_b = t_pair["pair_b"]
     pair_c = t_pair["pair_c"]
@@ -166,6 +175,10 @@ def calc_triangular_arb_surface_rate(t_pair, prices_dict):
     b_bid = prices_dict["pair_b_bid"]
     c_ask = prices_dict["pair_c_ask"]
     c_bid = prices_dict["pair_c_bid"]
+
+    # Guard - return zero if non divisible items
+    if a_ask == 0 or a_bid == 0 or b_ask == 0 or b_bid == 0 or c_ask == 0 or c_bid == 0:
+        return []
 
     # Set directions and loop through
     direction_list = ["forward", "reverse"]
