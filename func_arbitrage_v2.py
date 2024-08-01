@@ -489,3 +489,7 @@ def get_depth_from_orderbook():
     contract_1_direction = "base_to_quote"
     contract_2_direction = "base_to_quote"
     contract_3_direction = "quote_to_base"
+
+    # Get Order Book for First Trade Assessment
+    url1 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_1}&depth=20"
+    depth_1_prices = get_coin_tickers(url1)

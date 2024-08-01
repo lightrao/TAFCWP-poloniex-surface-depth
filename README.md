@@ -77,3 +77,5 @@ Looking Back and Next Steps
 ## Poloniex - calculating depth
 
 Setting Variables and Orderbook Depth
+
+Retrieving Orderbook Price Data
