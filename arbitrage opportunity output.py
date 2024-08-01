@@ -167,3 +167,28 @@
     "trade_description_2": "Swap 914.9130832570905 of LTC at 71.37 for USDC acquiring 65297.346752058555.",
     "trade_description_3": "Swap 65297.346752058555 of USDC at 1.4993564762004148e-05 for BTC acquiring 0.9790399973140311.",
 }
+
+{
+    "swap_1": "USDT",
+    "swap_2": "TRX",
+    "swap_3": "BTT",
+    "contract_1": "TRX_USDT",
+    "contract_2": "BTT_TRX",
+    "contract_3": "BTT_USDT",
+    "direction_trade_1": "base_to_quote",
+    "direction_trade_2": "base_to_quote",
+    "direction_trade_3": "quote_to_base",
+    "starting_amount": 1,
+    "acquired_coin_t1": 7.595321282090232,
+    "acquired_coin_t2": 1123568.2369955967,
+    "acquired_coin_t3": 1.0005375150445788,
+    "swap_1_rate": 7.595321282090232,
+    "swap_2_rate": 147928.99408284025,
+    "swap_3_rate": 8.905e-07,
+    "profit_loss": 0.0005375150445787735,
+    "profit_loss_perc": 0.05375150445787735,
+    "direction": "forward",
+    "trade_description_1": "Start with USDT of 1. Swap at 7.595321282090232 for TRX acquiring 7.595321282090232.",
+    "trade_description_2": "Swap 7.595321282090232 of TRX at 147928.99408284025 for BTT acquiring 1123568.2369955967.",
+    "trade_description_3": "Swap 1123568.2369955967 of BTT at 8.905e-07 for USDT acquiring 1.0005375150445788.",
+}
