@@ -79,3 +79,5 @@ Looking Back and Next Steps
 Setting Variables and Orderbook Depth
 
 Retrieving Orderbook Price Data
+
+Reformatting ASK Orderbook Prices

@@ -464,6 +464,26 @@ def calc_triangular_arb_surface_rate(t_pair, prices_dict):
     return surface_dict
 
 
+# Reformat order book for Depth Caculation
+def reformatted_orderbook(prices, c_direction):
+    price_list_main = []
+    if c_direction == "base to quote":
+        for p in prices["ask"]:
+            ask_price = float(p[0])
+            adj_price = 1 / ask_price if ask_price != 0 else 0
+            adj_quantity = (
+                float(p[1]) * ask_price
+            )  # convert quantity from quote(BTC) to base(USDT)
+            price_list_main.append(adj_price, adj_quantity)
+    if c_direction == "quote to base":
+        for p in prices["bid"]:
+            bid_price = float(p[0])
+            adj_price = bid_price if bid_price != 0 else 0
+            adj_quantity = float(p[1])
+            price_list_main.append(adj_price, adj_quantity)
+    return price_list_main
+
+
 # Get the Depth From the Order Book
 def get_depth_from_orderbook():
     """
@@ -493,3 +513,7 @@ def get_depth_from_orderbook():
     # Get Order Book for First Trade Assessment
     url1 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_1}&depth=20"
     depth_1_prices = get_coin_tickers(url1)
+    depth_1_reformatted_prices = reformatted_orderbook(
+        depth_1_prices, contract_1_direction
+    )
+    print(depth_1_reformatted_prices)
