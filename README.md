@@ -83,3 +83,5 @@ Retrieving Orderbook Price Data
 Reformatting ASK Orderbook Prices
 
 Calculating Orderbook Depth
+
+Calculating REAL RATE Profit and Loss

@@ -588,4 +588,23 @@ def get_depth_from_orderbook():
         acquired_coin_t2, depth_3_reformatted_prices
     )  # The difference between acquired coin trade three and our starting amount will be our profit or loss
 
-    print(starting_amount, acquired_coin_t3)
+    # Caculate Profit Loss Also Known as Real Rate
+    profit_loss = acquired_coin_t3 - starting_amount
+    real_rate_perc = (
+        (profit_loss / starting_amount) * 100 if starting_amount != 0 else 0
+    )
+
+    if real_rate_perc > -1:  # >1
+        return_dict = {
+            "profit_loss": profit_loss,
+            "real_rate_perc": real_rate_perc,
+            "contract_1": contract_1,
+            "contract_2": contract_2,
+            "contract_3": contract_3,
+            "contract_1_direction": contract_1_direction,
+            "contract_2_direction": contract_2_direction,
+            "contract_3_direction": contract_3_direction,
+        }
+        return return_dict
+    else:
+        return {}
