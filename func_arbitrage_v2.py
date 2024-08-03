@@ -474,13 +474,13 @@ def reformatted_orderbook(prices, c_direction):
             adj_quantity = (
                 float(p[1]) * ask_price
             )  # convert quantity from quote(BTC) to base(USDT)
-            price_list_main.append(adj_price, adj_quantity)
+            price_list_main.append([adj_price, adj_quantity])
     if c_direction == "quote to base":
         for p in prices["bid"]:
             bid_price = float(p[0])
             adj_price = bid_price if bid_price != 0 else 0
             adj_quantity = float(p[1])
-            price_list_main.append(adj_price, adj_quantity)
+            price_list_main.append([adj_price, adj_quantity])
     return price_list_main
 
 
@@ -557,21 +557,21 @@ def get_depth_from_orderbook():
     contract_3_direction = "quote_to_base"
 
     # Get Order Book for First Trade Assessment
-    url1 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_1}&depth=20"
+    url1 = f"https://api.poloniex.com/markets/{contract_1}/orderBook?limit=20"
     depth_1_prices = get_coin_tickers(url1)
     depth_1_reformatted_prices = reformatted_orderbook(
         depth_1_prices, contract_1_direction
     )
     time.sleep(0.3)
 
-    url2 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_2}&depth=20"
+    url2 = f"https://api.poloniex.com/markets/{contract_2}/orderBook?limit=20"
     depth_2_prices = get_coin_tickers(url2)
     depth_2_reformatted_prices = reformatted_orderbook(
         depth_2_prices, contract_2_direction
     )
     time.sleep(0.3)
 
-    url3 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_3}&depth=20"
+    url3 = f"https://api.poloniex.com/markets/{contract_3}/orderBook?limit=20"
     depth_3_prices = get_coin_tickers(url3)
     depth_3_reformatted_prices = reformatted_orderbook(
         depth_3_prices, contract_3_direction
