@@ -485,6 +485,7 @@ def reformatted_orderbook(prices, c_direction):
 
 
 # Get Acquired Coin also know as Depth Caculation
+# For example: input USDT acquire BTC or input BTC acquire USDT
 def caculate_acquired_coin(amount_in, orderbook):
     """
     CHELLANGES
@@ -508,7 +509,7 @@ def caculate_acquired_coin(amount_in, orderbook):
         # Amount In is <= first level total amount
         if trading_balance <= level_available_quantity:
             quantity_bought = trading_balance
-            trading_balance -= quantity_bought
+            trading_balance = 0
             amount_bought = (
                 quantity_bought * level_price
             )  # the amount bought of BTC for USDT_BTC pair
