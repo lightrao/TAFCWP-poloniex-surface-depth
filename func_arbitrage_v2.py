@@ -484,14 +484,59 @@ def reformatted_orderbook(prices, c_direction):
     return price_list_main
 
 
-# Get the Depth From the Order Book
-def get_depth_from_orderbook():
+# Get Acquired Coin also know as Depth Caculation
+def caculate_acquired_coin(amount_in, orderbook):
     """
     CHELLANGES
-    Full amount of available amount in can be eaten on the first level (level 0)
+    Full amount of starting amount can be eaten on the first level (level 0)
     Some of the amount can be eaten by multiple levels
     Some coins may not have enough liquidity
     """
+
+    # Initialize Variables
+    trading_balance = amount_in
+    quantity_bought = 0
+    acquired_coin = 0
+    counts = 0
+
+    for level in orderbook:
+
+        # Extract the level price and quantity
+        level_price = level[0]
+        level_available_quantity = level[1]
+
+        # Amount In is <= first level total amount
+        if trading_balance <= level_available_quantity:
+            quantity_bought = trading_balance
+            trading_balance -= quantity_bought
+            amount_bought = (
+                quantity_bought * level_price
+            )  # the amount bought of BTC for USDT_BTC pair
+
+        # Amount In is > given level total amount
+        if trading_balance > level_available_quantity:
+            quantity_bought = level_available_quantity
+            trading_balance -= quantity_bought
+            amount_bought = (
+                quantity_bought * level_price
+            )  # the amount bought of BTC for USDT_BTC pair
+
+        # Accumulate Acquired Coin
+        acquired_coin = acquired_coin + amount_bought
+
+        # Exit trade
+        if trading_balance == 0:
+            # print(amount_in, acquired_coin)
+            return acquired_coin
+
+        # Exit if not enough order book levels
+        counts += 1
+        if counts == len(orderbook):
+            return 0
+
+
+# Get the Depth From the Order Book
+def get_depth_from_orderbook():
 
     # Extract initial variables
     swap_1 = "USDT"
@@ -516,4 +561,30 @@ def get_depth_from_orderbook():
     depth_1_reformatted_prices = reformatted_orderbook(
         depth_1_prices, contract_1_direction
     )
-    print(depth_1_reformatted_prices)
+    time.sleep(0.3)
+
+    url2 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_2}&depth=20"
+    depth_2_prices = get_coin_tickers(url2)
+    depth_2_reformatted_prices = reformatted_orderbook(
+        depth_2_prices, contract_2_direction
+    )
+    time.sleep(0.3)
+
+    url3 = f"https://poloniex.com/public?command=returnOrderBook&currencyPair={contract_3}&depth=20"
+    depth_3_prices = get_coin_tickers(url3)
+    depth_3_reformatted_prices = reformatted_orderbook(
+        depth_3_prices, contract_3_direction
+    )
+
+    # Get Acquired Coins
+    acquired_coin_t1 = caculate_acquired_coin(
+        starting_amount, depth_1_reformatted_prices
+    )
+    acquired_coin_t2 = caculate_acquired_coin(
+        acquired_coin_t1, depth_2_reformatted_prices
+    )
+    acquired_coin_t3 = caculate_acquired_coin(
+        acquired_coin_t2, depth_3_reformatted_prices
+    )  # The difference between acquired coin trade three and our starting amount will be our profit or loss
+
+    print(starting_amount, acquired_coin_t3)

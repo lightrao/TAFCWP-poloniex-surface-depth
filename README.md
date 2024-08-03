@@ -81,3 +81,5 @@ Setting Variables and Orderbook Depth
 Retrieving Orderbook Price Data
 
 Reformatting ASK Orderbook Prices
+
+Calculating Orderbook Depth
