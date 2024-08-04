@@ -1,8 +1,6 @@
-# %%
 import func_arbitrage_v2
 import json
 import time
-
 
 # Set Variables
 coins_url = "https://api.poloniex.com/markets/price"
@@ -12,25 +10,24 @@ coin_price_url = "https://api.poloniex.com/markets/ticker24h"
     Step 0: Finding coins which can be traded
     Exchange: Poloniex
     https://docs.poloniex.com/#introduction
-    updated code: https://github.com/CryptoWizardsNet/poloniex-triarb-new.git
 """
 
 
 def step_0():
+
     # Extract list of coins and prices from Exchange
     coin_json = func_arbitrage_v2.get_coin_tickers(coin_price_url)
 
     # Loop through each objects and find the tradeable pairs
     coin_list = func_arbitrage_v2.collect_tradeables(coin_json)
 
-    # Return list of tradable coins
+    # Return list of tradeable coins
     return coin_list
 
 
-# %%
-"""
+""" 
     Step 1: Structuring Triangular Pairs
-    Calculating Only
+    Calculation Only
 """
 
 
@@ -44,7 +41,6 @@ def step_1(coin_list):
         json.dump(structured_list, fp)
 
 
-# %%
 """ 
     Step 2: Calculate Surface Arbitrage Opporunities
     Exchange: Poloniex
@@ -62,27 +58,28 @@ def step_2():
     prices_json = func_arbitrage_v2.get_coin_tickers(coin_price_url)
 
     # Loop Through and Structure Price Information
-
     for t_pair in structured_pairs:
-        time.sleep(0.8)
+        time.sleep(0.3)
         prices_dict = func_arbitrage_v2.get_price_for_t_pair(t_pair, prices_json)
-
         surface_arb = func_arbitrage_v2.calc_triangular_arb_surface_rate(
             t_pair, prices_dict
         )
-
         if len(surface_arb) > 0:
+            print("Running orderbook")
             real_rate_arb = func_arbitrage_v2.get_depth_from_orderbook(surface_arb)
             print(real_rate_arb)
             time.sleep(2)
 
 
-# %%
 """ MAIN """
-
 if __name__ == "__main__":
+    # print("Retrieving list of cryptos...")
     # coin_list = step_0()
-    # structured_paris = step_1(coin_list)
 
+    # print("Structuring cryptos into triangular pairs (2 mins)...")
+    # structured_pairs = step_1(coin_list)
+
+    print("Running scanning algorithm (will run until killed)...")
     while True:
+        time.sleep(1)
         step_2()

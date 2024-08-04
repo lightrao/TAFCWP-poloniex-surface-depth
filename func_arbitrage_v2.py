@@ -3,7 +3,7 @@ import json
 import time
 
 
-# make a get request
+# Make a get request
 def get_coin_tickers(url):
     req = requests.get(url)
     json_resp = json.loads(req.text)
@@ -74,7 +74,7 @@ def structure_triangular_pairs(coin_list):
                                 if i == c_quote:
                                     counts_c_quote += 1
 
-                            # Determing Triangular Match
+                            # Determining Triangular Match
                             if (
                                 counts_c_base == 2
                                 and counts_c_quote == 2
@@ -99,6 +99,7 @@ def structure_triangular_pairs(coin_list):
                                     triangular_pairs_list.append(match_dict)
                                     remove_duplicates_list.append(unique_item)
 
+    # Return result
     return triangular_pairs_list
 
 
@@ -488,22 +489,20 @@ def reformatted_orderbook(prices, c_direction):
     return price_list_main
 
 
-# Get Acquired Coin also know as Depth Caculation
-# For example: input USDT acquire BTC or input BTC acquire USDT
-def caculate_acquired_coin(amount_in, orderbook):
+# Get Acquired Coin Also Known As Depth Calculation
+def calculate_acquired_coin(amount_in, orderbook):
     """
-    CHELLANGES
+    CHALLENGES
     Full amount of starting amount can be eaten on the first level (level 0)
-    Some of the amount can be eaten by multiple levels
+    Some of the amount in can be eaten up by multiple levels
     Some coins may not have enough liquidity
     """
 
-    # Initialize Variables
+    # Initialise Variables
     trading_balance = amount_in
     quantity_bought = 0
     acquired_coin = 0
     counts = 0
-
     for level in orderbook:
 
         # Extract the level price and quantity
@@ -514,24 +513,19 @@ def caculate_acquired_coin(amount_in, orderbook):
         if trading_balance <= level_available_quantity:
             quantity_bought = trading_balance
             trading_balance = 0
-            amount_bought = (
-                quantity_bought * level_price
-            )  # the amount bought of BTC for USDT_BTC pair
+            amount_bought = quantity_bought * level_price
 
-        # Amount In is > given level total amount
+        # Amount In is > a given level total amount
         if trading_balance > level_available_quantity:
             quantity_bought = level_available_quantity
             trading_balance -= quantity_bought
-            amount_bought = (
-                quantity_bought * level_price
-            )  # the amount bought of BTC for USDT_BTC pair
+            amount_bought = quantity_bought * level_price
 
         # Accumulate Acquired Coin
         acquired_coin = acquired_coin + amount_bought
 
-        # Exit trade
+        # Exit Trade
         if trading_balance == 0:
-            # print(amount_in, acquired_coin)
             return acquired_coin
 
         # Exit if not enough order book levels
@@ -567,14 +561,12 @@ def get_depth_from_orderbook(surface_arb):
         depth_1_prices, contract_1_direction
     )
     time.sleep(0.3)
-
     url2 = f"https://api.poloniex.com/markets/{contract_2}/orderBook?limit=20"
     depth_2_prices = get_coin_tickers(url2)
     depth_2_reformatted_prices = reformatted_orderbook(
         depth_2_prices, contract_2_direction
     )
     time.sleep(0.3)
-
     url3 = f"https://api.poloniex.com/markets/{contract_3}/orderBook?limit=20"
     depth_3_prices = get_coin_tickers(url3)
     depth_3_reformatted_prices = reformatted_orderbook(
@@ -582,23 +574,21 @@ def get_depth_from_orderbook(surface_arb):
     )
 
     # Get Acquired Coins
-    acquired_coin_t1 = caculate_acquired_coin(
+    acquired_coin_t1 = calculate_acquired_coin(
         starting_amount, depth_1_reformatted_prices
     )
-    acquired_coin_t2 = caculate_acquired_coin(
+    acquired_coin_t2 = calculate_acquired_coin(
         acquired_coin_t1, depth_2_reformatted_prices
     )
-    acquired_coin_t3 = caculate_acquired_coin(
+    acquired_coin_t3 = calculate_acquired_coin(
         acquired_coin_t2, depth_3_reformatted_prices
-    )  # The difference between acquired coin trade three and our starting amount will be our profit or loss
-
-    # Caculate Profit Loss Also Known as Real Rate
-    profit_loss = acquired_coin_t3 - starting_amount
-    real_rate_perc = (
-        (profit_loss / starting_amount) * 100 if starting_amount != 0 else 0
     )
 
-    if real_rate_perc > 0:
+    # Calculate Profit Loss Also Known As Real Rate
+    profit_loss = acquired_coin_t3 - starting_amount
+    real_rate_perc = (profit_loss / starting_amount) * 100 if profit_loss != 0 else 0
+
+    if real_rate_perc > -1:
         return_dict = {
             "profit_loss": profit_loss,
             "real_rate_perc": real_rate_perc,
