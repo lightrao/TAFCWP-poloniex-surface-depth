@@ -85,3 +85,5 @@ Reformatting ASK Orderbook Prices
 Calculating Orderbook Depth
 
 Calculating REAL RATE Profit and Loss
+
+Automating Orderbook Depth Calculation for Surface Rate Trigger
