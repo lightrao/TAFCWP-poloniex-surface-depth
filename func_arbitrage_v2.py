@@ -464,22 +464,26 @@ def calc_triangular_arb_surface_rate(t_pair, prices_dict):
     return surface_dict
 
 
-# Reformat order book for Depth Caculation
+# Reformat Order Book for Depth Calculation
 def reformatted_orderbook(prices, c_direction):
+
+    # Convert strings to floating point numbers
+    prices["scale"] = float(prices["scale"])
+    prices["asks"] = [float(x) for x in prices["asks"]]
+    prices["bids"] = [float(x) for x in prices["bids"]]
+
     price_list_main = []
-    if c_direction == "base to quote":
-        for p in prices["ask"]:
-            ask_price = float(p[0])
+    if c_direction == "base_to_quote":
+        for i in range(0, len(prices["asks"]), 2):
+            ask_price = prices["asks"][i]
             adj_price = 1 / ask_price if ask_price != 0 else 0
-            adj_quantity = (
-                float(p[1]) * ask_price
-            )  # convert quantity from quote(BTC) to base(USDT)
+            adj_quantity = prices["asks"][i + 1] * ask_price
             price_list_main.append([adj_price, adj_quantity])
-    if c_direction == "quote to base":
-        for p in prices["bid"]:
-            bid_price = float(p[0])
+    if c_direction == "quote_to_base":
+        for i in range(0, len(prices["bids"]), 2):
+            bid_price = prices["bids"][i]
             adj_price = bid_price if bid_price != 0 else 0
-            adj_quantity = float(p[1])
+            adj_quantity = prices["bids"][i + 1]
             price_list_main.append([adj_price, adj_quantity])
     return price_list_main
 
@@ -547,9 +551,9 @@ def get_depth_from_orderbook():
         starting_amount = starting_amount_dict[swap_1]
 
     # Define pairs
-    contract_1 = "USDT_BTC"
-    contract_2 = "BTC_INJ"
-    contract_3 = "USDT_INJ"
+    contract_1 = "BTC_USDT"
+    contract_2 = "INJ_BTC"
+    contract_3 = "INJ_USDT"
 
     # Define direction for trades
     contract_1_direction = "base_to_quote"
@@ -594,7 +598,7 @@ def get_depth_from_orderbook():
         (profit_loss / starting_amount) * 100 if starting_amount != 0 else 0
     )
 
-    if real_rate_perc > -1:  # >1
+    if True:  # real_rate_perc > 1:
         return_dict = {
             "profit_loss": profit_loss,
             "real_rate_perc": real_rate_perc,
@@ -604,6 +608,9 @@ def get_depth_from_orderbook():
             "contract_1_direction": contract_1_direction,
             "contract_2_direction": contract_2_direction,
             "contract_3_direction": contract_3_direction,
+            "acquired_coin_t1": acquired_coin_t1,
+            "acquired_coin_t2": acquired_coin_t2,
+            "acquired_coin_t3": acquired_coin_t3,
         }
         return return_dict
     else:
